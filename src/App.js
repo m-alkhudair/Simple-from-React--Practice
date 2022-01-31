@@ -39,11 +39,15 @@ function App() {
     setIsValid(bool);
   };
 
+  const okayButtonHandler = (event) => {
+    setIsValid(true);
+  }
+
   return (
     <div className="App">
       <UserForm addUserData={newUserData} onFormVarify={formValid} />
       <UsersList toRenderUserDataArray={usersArray} />
-      {!isValid && <ErrorMessage />}
+      {!isValid && <ErrorMessage onOkeyButtonHandler={okayButtonHandler} />}
     </div>
   );
 }
