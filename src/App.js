@@ -6,12 +6,11 @@ import UserForm from "./components/UserInput/UserForm";
 import UsersList from "./components/UsersList/UsersList";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 
-// const dummyArray = [];
-
 function App() {
   const [counter, setCounter] = useState(0);
   const [usersArray, setUsersArray] = useState([]);
   const [isValid, setIsValid] = useState(true);
+  const [errorMessage, setErrorMassage] = useState("");
 
   const newUserData = (name, age) => {
     const userData = {
@@ -23,10 +22,6 @@ function App() {
     setCounter((prevCount) => {
       return prevCount + 1;
     });
-
-    // dummyArray.push(userData);
-    // console.log(dummyArray);
-    // console.log(usersArray);
 
     setUsersArray((prevUser) => {
       return [userData, ...prevUser];
@@ -41,13 +36,26 @@ function App() {
 
   const okayButtonHandler = (event) => {
     setIsValid(true);
-  }
+  };
+
+  const returnErrorMessage = (message) => {
+    setErrorMassage(message);
+  };
 
   return (
     <div className="App">
-      <UserForm addUserData={newUserData} onFormVarify={formValid} />
+      <UserForm
+        addUserData={newUserData}
+        onFormVarify={formValid}
+        onReturnErrorMessage={returnErrorMessage}
+      />
       <UsersList toRenderUserDataArray={usersArray} />
-      {!isValid && <ErrorMessage onOkeyButtonHandler={okayButtonHandler} />}
+      {!isValid && (
+        <ErrorMessage
+          onOkeyButtonHandler={okayButtonHandler}
+          theErrorMessage={errorMessage}
+        />
+      )}
     </div>
   );
 }

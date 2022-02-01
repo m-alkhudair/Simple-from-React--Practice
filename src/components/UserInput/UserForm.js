@@ -24,7 +24,14 @@ const UserForm = (props) => {
 
     if (enteredName.trim().length === 0 || enteredAge.length === 0) {
       console.log('testing!');
-      props.onFormVarify(false);// Not Working
+      //send to app.js to select error message 1
+      props.onFormVarify(false);
+      props.onReturnErrorMessage('Please enter a valid name and age (non-empty values).');
+ 
+    } else if (enteredAge < 0){
+      // send app.js to select error message 2
+      props.onFormVarify(false);
+      props.onReturnErrorMessage('Please enter a valid age (>0).');
       
     } else {
       props.addUserData(enteredName, enteredAge);
